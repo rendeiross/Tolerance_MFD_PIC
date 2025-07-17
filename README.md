@@ -3,6 +3,7 @@
 
 The equations used were retrieved from an open source paper: https://doi.org/10.1364/AO.540682, published at Optica Group 2024.
 --------------------////////////////////////-----------------------------------
+
 Running
 
 Run the script and wait for the GUI to pop.
@@ -11,7 +12,9 @@ Input the values of Dx1,Dy1 and Dx2,Dy2, representing the diameter of the beam f
 
 Input the tolerancing values. The wavelength is required for ztolerance calculations.
 
+
 --------------------////////////////////////-----------------------------------
+
 Results explanation
 
 η_M represents only the insertion loss due to mode mismatch
