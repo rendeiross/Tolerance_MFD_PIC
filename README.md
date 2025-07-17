@@ -2,9 +2,9 @@
 
 
 The equations used were retrieved from an open source paper: https://doi.org/10.1364/AO.540682, published at Optica Group 2024.
---------------------////////////////////////-----------------------------------
 
-Running
+
+## Running
 
 Run the script and wait for the GUI to pop.
 
@@ -13,9 +13,7 @@ Input the values of Dx1,Dy1 and Dx2,Dy2, representing the diameter of the beam f
 Input the tolerancing values. The wavelength is required for ztolerance calculations.
 
 
---------------------////////////////////////-----------------------------------
-
-Results explanation
+## Results explanation
 
 η_M represents only the insertion loss due to mode mismatch
 
@@ -26,7 +24,7 @@ Results explanation
 η_total = sums the η_δx, η_δy and η_ZM insertion loss
 
 
---------------------////////////////////////-----------------------------------
+## Extra
 
 Generate IL map (2D): generates the heat map from the coupling, drawing the 1 dB, 2dB and 3 dB loss areas.
 
