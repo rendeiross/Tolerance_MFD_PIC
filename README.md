@@ -26,7 +26,8 @@ Input the tolerancing values. The wavelength is required for ztolerance calculat
 
 ## Extra
 
-Generate IL map (2D): generates the heat map from the coupling, drawing the 1 dB, 2dB and 3 dB loss areas.
+Generate IL map (2D): generates the heat map from the coupling, drawing the 1 dB, 2dB and 3 dB loss areas. (If the heat map result is blank, check line 164:
+contour = plt.contourf(X_d, Y_d, efficiency_losses_db, levels=np.linspace(-6, 0, 500), cmap='magma') and correct the levels linspace (max IL, min IL, resolution)
 
 Generate IL map (1D): same as Generate IL map (2D) but with separated axes to see the difference between x and y.
 
