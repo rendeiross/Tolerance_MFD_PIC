@@ -36,3 +36,10 @@ Generate IL vs deltaz: generates a plot with IL vs ztolerance for a givem max z 
 Labels: allows to change the names of the labels for easy and fast figure creation. (Generate IL vs deltaz is not integrated in labels, therefore, to change labels for these graphs you need to manually change in the script and re-run the app).
 
 
+## Fresnel stack
+
+A simple APP using the formula R = ((n1 - n2) / (n1 + n2)) ** 2, where the user can stack some materials and evaluate the Fresnel losses due to reflections at the irterface. The user can quickly choose the layer in the right menu and use keyboard arrows up and down to move the different materials.
+The user can choose the predefined materials or simply write a new one, since the name and refractive index boxes can be interactively changed.
+
+The fresnel_stack.py can be runned 'solo' or in Optical coupling calculator.py, integrated as tab 3 (both need to be on the same folder)
+
