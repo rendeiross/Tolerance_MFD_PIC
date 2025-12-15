@@ -148,19 +148,22 @@ def update_cross_section_plot(Dx1, Dy1, Dx2, Dy2, dx, dy):
     canvas_cs.draw()
 
 def update_2d_heatmap(Dx1, Dx2, Dy1, Dy2, dz, wl, input_dx, input_dy):
-    ax_hm.clear()
+    # 1. Clear the ENTIRE figure, not just the axis.
+    # This automatically removes the old colorbar and axis, avoiding the crash.
+    fig_hm.clear()
     
-    # Determine range based on inputs
+    # 2. Re-add the subplot fresh
+    ax = fig_hm.add_subplot(111)
+    
+    # --- CALCULATION LOGIC ---
     max_range = max(abs(input_dx), abs(input_dy)) * 2
-    if max_range < 5: max_range = 10 # Minimum view
+    if max_range < 5: max_range = 10 
     
     X = np.linspace(-max_range, max_range, 50)
     Y = np.linspace(-max_range, max_range, 50)
     X_g, Y_g = np.meshgrid(X, Y)
     Z_g = np.zeros_like(X_g)
     
-    # Calculate grid efficiently
-    # Note: eta_ZM is constant for this plane
     const_ZM = eta_ZM(Dx1, Dx2, Dy1, Dy2, dz, wl)
     
     for i in range(X_g.shape[0]):
@@ -168,33 +171,29 @@ def update_2d_heatmap(Dx1, Dx2, Dy1, Dy2, dz, wl, input_dx, input_dy):
             val = eta_delta_x(X_g[i,j], Dx1, Dx2) * eta_delta_y(Y_g[i,j], Dy1, Dy2) * const_ZM
             Z_g[i,j] = to_dB(val)
             
-    contour = ax_hm.contourf(X_g, Y_g, Z_g, levels=np.linspace(-10, 0, 50), cmap='magma')
+    # --- PLOTTING ---
+    contour = ax.contourf(X_g, Y_g, Z_g, levels=np.linspace(-10, 0, 50), cmap='magma')
     
-    # --- NEW CODE START ---
-    # 1. Manage Colorbar (Remove old one if exists, add new one with label)
-    if hasattr(fig_hm, 'cbar'):
-            fig_hm.cbar.remove()
-    fig_hm.cbar = fig_hm.colorbar(contour, ax=ax_hm, fraction=0.046, pad=0.04)
-    fig_hm.cbar.set_label('IL (dB)', fontsize=7)
-    fig_hm.cbar.ax.tick_params(labelsize=6)
-
-    # 2. Add contour lines at -1 and -3 dB AND label them
-    # We capture the objects (c1, c2) to pass to clabel
-    c1 = ax_hm.contour(X_g, Y_g, Z_g, levels=[-1], colors='white', linewidths=0.8, linestyles='--')
-    ax_hm.clabel(c1, inline=True, fmt='-1 dB', fontsize=6, colors='white', manual=False)
-
-    c2 = ax_hm.contour(X_g, Y_g, Z_g, levels=[-3], colors='white', linewidths=0.8, linestyles=':')
-    ax_hm.clabel(c2, inline=True, fmt='-3 dB', fontsize=6, colors='white', manual=False)
-    # --- NEW CODE END ---
-
-    # [Existing line] Mark current position
-    ax_hm.scatter([input_dx], [input_dy], color='cyan', marker='x', s=50, label='Current')
-    # Mark current position
-    ax_hm.scatter([input_dx], [input_dy], color='cyan', marker='x', s=50, label='Current')
+    # Add colorbar (No need to check for existence or remove, the figure is fresh)
+    cbar = fig_hm.colorbar(contour, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label(label_HM_ylabel.get(), fontsize=7)
+    cbar.ax.tick_params(labelsize=6)
     
-    ax_hm.set_xlabel(label_HM_xlabel.get(), fontsize=7)
-    ax_hm.set_ylabel(label_HM_ylabel.get(), fontsize=7)
-    ax_hm.set_title(label_HM_title.get(), fontsize=9, pad=3)
+    # Contour lines
+    c1 = ax.contour(X_g, Y_g, Z_g, levels=[-1], colors='white', linewidths=0.8, linestyles='--')
+    ax.clabel(c1, inline=True, fmt='-1 dB', fontsize=6, colors='white', manual=False)
+
+    c2 = ax.contour(X_g, Y_g, Z_g, levels=[-3], colors='white', linewidths=0.8, linestyles=':')
+    ax.clabel(c2, inline=True, fmt='-3 dB', fontsize=6, colors='white', manual=False)
+
+    ax.scatter([input_dx], [input_dy], color='cyan', marker='x', s=50, label='Current')
+    
+    # Labels
+    ax.set_xlabel(label_HM_xlabel.get(), fontsize=7)
+    ax.set_ylabel(label_HM_ylabel.get(), fontsize=7)
+    ax.set_title(label_HM_title.get(), fontsize=9, pad=3)
+    
+    # 3. Draw
     canvas_hm.draw()
 
 def update_1d_il_plot(Dx1, Dx2, Dy1, Dy2, dz, wl, input_dx, input_dy):
@@ -760,4 +759,5 @@ def on_closing():
     root.destroy()
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
+
 root.mainloop()
