@@ -40,8 +40,11 @@ Labels: allows to change the names of the labels for easy and fast figure creati
 
 PLOTS:
 Top left plot shows the cross-section of both optical ports and the corresponding misalignment.
+
 Top right plot shows the heatmap of the insertion loss due to mode mismatch, draws lines for -1dB and -3dB tolerance and sets a cross at the chosen deltax,deltay point.
+
 Bottom left plot shows the 1D misalignment vs insertion loss for x and y sweep. Places a point at the chosen deltax,deltay.
+
 Bottom left plot shows the delta z vs insertion loss. Places a point at the chosen deltaz.
 
 ## Tab 2: Converter
@@ -53,5 +56,5 @@ Simple converter percentage to dB and dB to percentage. current to optical power
 A simple APP using the formula R = ((n1 - n2) / (n1 + n2)) ** 2, where the user can stack some materials and evaluate the Fresnel losses due to reflections at the irterface. The user can quickly choose the layer in the right menu and use keyboard arrows up and down to move the different materials.
 The user can choose the predefined materials or simply write a new one, since the name and refractive index boxes can be interactively changed.
 
-The fresnel_stack.py can be runned 'solo' or in Optical coupling calculator.py, integrated as tab 3 (both need to be on the same folder)
+The fresnel_stack.py can be runned 'solo' or in Optical coupling calculator_v2.py, integrated as tab 3 (both need to be on the same folder)
 
