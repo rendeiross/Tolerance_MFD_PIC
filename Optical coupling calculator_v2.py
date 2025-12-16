@@ -176,7 +176,7 @@ def update_2d_heatmap(Dx1, Dx2, Dy1, Dy2, dz, wl, input_dx, input_dy):
     
     # Add colorbar (No need to check for existence or remove, the figure is fresh)
     cbar = fig_hm.colorbar(contour, ax=ax, fraction=0.046, pad=0.04)
-    cbar.set_label(label_HM_ylabel.get(), fontsize=7)
+    cbar.set_label("IL (dB)", fontsize=7)
     cbar.ax.tick_params(labelsize=6)
     
     # Contour lines
@@ -764,4 +764,5 @@ def on_closing():
 root.protocol("WM_DELETE_WINDOW", on_closing)
 
 root.mainloop()
+
 
