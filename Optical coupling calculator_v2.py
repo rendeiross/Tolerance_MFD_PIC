@@ -395,6 +395,9 @@ for var in [entry_Dx1_var, entry_Dx2_var, entry_Dy1_var, entry_Dy2_var,
             entry_wavelength_var, entry_z_sweep_max_var]:
     var.trace_add('write', calculate_results)
 
+entry_Dx1_var.trace_add('write', sync_Dy1)
+entry_Dx2_var.trace_add('write', sync_Dy2)
+
 # --- LEFT COLUMN ---
 # Geometry
 ttk.Label(frame_left, text="Dx1 (μm):").grid(row=0, column=0, sticky='w')
@@ -761,3 +764,4 @@ def on_closing():
 root.protocol("WM_DELETE_WINDOW", on_closing)
 
 root.mainloop()
+
